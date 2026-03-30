@@ -1,0 +1,8 @@
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "run": {
+    "command": "node server.js"
+  }
+}
