@@ -1,4 +1,4 @@
 {
   "start_command": "node server.js",
-  "node_version": "18"
+  "node_version": "20"
 }

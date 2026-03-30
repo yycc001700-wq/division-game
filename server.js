@@ -465,6 +465,6 @@ function endGame(code) {
   console.log(`房間 ${code} 遊戲結束`);
 }
 
-server.listen(PORT, () => {
-  console.log(`除法對戰遊戲伺服器啟動：http://localhost:${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`除法對戰遊戲伺服器啟動：http://0.0.0.0:${PORT}`);
 });
