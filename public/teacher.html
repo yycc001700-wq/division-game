@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>老師後台 - 除法對戰遊戲</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" style="justify-content: flex-start; padding-top: 30px;">
+
+    <!-- 建立房間畫面 -->
+    <div id="screen-create" class="card card-wide" style="max-width: 500px;">
+      <div style="text-align:center; margin-bottom: 24px;">
+        <span style="font-size: 3rem;">👩‍🏫</span>
+      </div>
+      <h1 class="page-title">老師後台</h1>
+      <p class="page-subtitle">建立房間，讓學生掃描加入</p>
+      <button id="btn-create-room" class="btn btn-primary" style="width:100%;">
+        🏠 建立新房間
+      </button>
+      <div style="margin-top: 16px; text-align:center;">
+        <a href="index.html" style="color: var(--text-light); text-decoration: none; font-size: 0.95rem;">← 返回首頁</a>
+      </div>
+    </div>
+
+    <!-- 等待學生畫面 -->
+    <div id="screen-waiting" class="card card-wide hidden">
+      <div class="room-code-display">
+        <div class="room-code-label">📋 房間代碼（請告訴學生）</div>
+        <div class="room-code" id="room-code-text">------</div>
+      </div>
+
+      <div class="student-list-title">
+        👥 已加入的學生
+        <span class="student-count-badge" id="student-count">0</span>
+      </div>
+      <ul class="student-list" id="student-list">
+        <li class="student-item" style="color: var(--text-light); justify-content: center;">
+          等待學生加入...
+        </li>
+      </ul>
+
+      <div id="alert-area"></div>
+
+      <button id="btn-start-game" class="btn btn-success" style="width:100%; margin-bottom: 12px;" disabled>
+        🎮 開始遊戲
+      </button>
+      <button id="btn-back-home" class="btn btn-secondary" style="width:100%;">
+        ← 返回首頁
+      </button>
+    </div>
+
+    <!-- 遊戲進行中畫面 -->
+    <div id="screen-playing" class="card card-wide hidden">
+      <div class="teacher-game-header">
+        <div class="stat-card">
+          <div class="stat-label">第幾題</div>
+          <div class="stat-value" id="q-current">0/15</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">已答人數</div>
+          <div class="stat-value" id="q-answered">0/0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">剩餘時間</div>
+          <div class="stat-value" id="q-timer">15</div>
+        </div>
+      </div>
+
+      <div class="timer-bar-container">
+        <div class="timer-bar" id="teacher-timer-bar"></div>
+      </div>
+
+      <div class="question-display">
+        <div class="question-number" id="q-number-label">第 1 題 / 共 15 題</div>
+        <div class="question-text" id="q-text">--- ÷ - = ?</div>
+        <div class="question-answer" id="q-answer">答案：商 = ? 餘 = ?</div>
+      </div>
+
+      <div class="progress-section">
+        <div class="progress-header">
+          <span class="progress-title">📝 學生答題狀況</span>
+          <span class="progress-count" id="progress-count">0/0</span>
+        </div>
+        <div class="answer-grid" id="answer-grid"></div>
+      </div>
+    </div>
+
+    <!-- 題目結果/排行榜畫面 -->
+    <div id="screen-result" class="card card-wide hidden">
+      <h2 class="page-title" style="margin-bottom: 20px;">🏆 本題排行榜</h2>
+      <div class="question-display" style="margin-bottom: 20px;">
+        <div class="question-text" id="result-q-text"></div>
+        <div class="question-answer" id="result-q-answer"></div>
+      </div>
+      <ul class="leaderboard" id="teacher-leaderboard"></ul>
+    </div>
+
+    <!-- 遊戲結束畫面 -->
+    <div id="screen-ended" class="card card-wide hidden">
+      <div style="text-align:center; margin-bottom: 20px;">
+        <span style="font-size: 3rem;">🎉</span>
+        <h2 class="page-title">遊戲結束！</h2>
+      </div>
+
+      <h3 style="font-size: 1.2rem; font-weight: bold; margin-bottom: 12px;">🏆 最終排行榜</h3>
+      <ul class="leaderboard" id="final-leaderboard" style="margin-bottom: 24px;"></ul>
+
+      <div class="divider"></div>
+
+      <h3 style="font-size: 1.2rem; font-weight: bold; margin-bottom: 12px;">📊 完整成績報表</h3>
+      <div class="report-table-wrapper">
+        <table class="report-table" id="report-table">
+          <thead id="report-thead"></thead>
+          <tbody id="report-tbody"></tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
+        <button id="btn-restart" class="btn btn-warning" style="flex:1; min-width: 160px;">
+          🔄 重新開始
+        </button>
+        <a href="index.html" class="btn btn-secondary" style="flex:1; min-width: 160px; text-align:center;">
+          🏠 回首頁
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="teacher.js"></script>
+</body>
+</html>
